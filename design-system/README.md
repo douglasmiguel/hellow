@@ -38,7 +38,7 @@ The canonical brand gradient is Ocean 700 → Cyan 400 → Lime 400 at `120deg`.
 
 ## Typography
 
-Use `Inter`, followed by the native UI sans-serif stack. The time is the main visual gesture: very light weight, tabular numerals, tight tracking. Headings use 600–750 weights; supporting copy uses 400–600. Uppercase eyebrows are small, cyan, and widely tracked.
+Use `Inter`, followed by the native UI sans-serif stack. The time is the main visual gesture: the default Modern option uses a very light weight, tabular numerals, and tight tracking. Settings also offers nine curated local font stacks for the main and world-clock numerals; each option adjusts weight and tracking for legibility without making a network request. Headings use 600–750 weights; supporting copy uses 400–600. Uppercase eyebrows are small, cyan, and widely tracked.
 
 ## Surfaces and components
 

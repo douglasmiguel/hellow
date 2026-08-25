@@ -12,6 +12,9 @@
   --panel: rgba(3, 31, 41, 0.96);
   --accent: var(--hellow-lime-400);
   --focus: var(--hellow-cyan-300);
+  --clock-font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --clock-font-weight: 180;
+  --clock-letter-spacing: -0.075em;
 }
 
 * {
@@ -160,10 +163,11 @@ button {
 
 .world-clock-time {
   margin: 3px 0 1px !important;
+  font-family: var(--clock-font-family);
   font-size: 20px;
   font-variant-numeric: tabular-nums;
-  font-weight: 430;
-  letter-spacing: -0.035em;
+  font-weight: var(--clock-font-weight);
+  letter-spacing: var(--clock-letter-spacing);
 }
 
 .world-clock-date {
@@ -181,10 +185,11 @@ button {
 
 .local-time {
   display: block;
+  font-family: var(--clock-font-family);
   font-size: clamp(82px, 14vw, 190px);
   font-variant-numeric: tabular-nums;
-  font-weight: 180;
-  letter-spacing: -0.075em;
+  font-weight: var(--clock-font-weight);
+  letter-spacing: var(--clock-letter-spacing);
   line-height: 0.86;
   text-shadow: 0 4px 34px rgba(0, 0, 0, 0.34);
 }
@@ -421,6 +426,88 @@ body.settings-open .settings-backdrop {
 .field input:disabled {
   cursor: not-allowed;
   opacity: 0.45;
+}
+
+.clock-font-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.clock-font-choice {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  min-height: 82px;
+  align-content: center;
+  gap: 8px;
+  padding: 13px 14px 11px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--hellow-radius-sm);
+  background: rgba(255, 255, 255, 0.035);
+  cursor: pointer;
+  text-align: left;
+  transition:
+    background var(--hellow-duration-fast) ease,
+    border-color var(--hellow-duration-fast) ease,
+    transform var(--hellow-duration-fast) ease;
+}
+
+.clock-font-choice:hover {
+  border-color: rgba(97, 241, 242, 0.46);
+  background: rgba(0, 220, 230, 0.07);
+  transform: translateY(-1px);
+}
+
+.clock-font-choice.is-selected {
+  border-color: var(--accent);
+  background: rgba(200, 255, 0, 0.055);
+  box-shadow: 0 0 0 2px rgba(200, 255, 0, 0.18);
+}
+
+.clock-font-preview {
+  display: block;
+  overflow: hidden;
+  color: var(--hellow-white);
+  font-size: 25px;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  text-overflow: clip;
+  white-space: nowrap;
+}
+
+.clock-font-label {
+  color: rgba(216, 255, 255, 0.64);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.clock-font-check {
+  position: absolute;
+  top: 8px;
+  right: 9px;
+  display: grid;
+  width: 17px;
+  height: 17px;
+  place-items: center;
+  border-radius: var(--hellow-radius-round);
+  background: var(--accent);
+  color: var(--hellow-ocean-950);
+  font-family: ui-sans-serif, sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  opacity: 0;
+  transform: scale(0.72);
+  transition:
+    opacity var(--hellow-duration-fast) ease,
+    transform var(--hellow-duration-fast) ease;
+}
+
+.clock-font-choice.is-selected .clock-font-check {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .background-options {

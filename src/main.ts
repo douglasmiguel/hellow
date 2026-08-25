@@ -1,4 +1,11 @@
 import "./styles.css";
+import {
+  clockFonts,
+  DEFAULT_CLOCK_FONT_ID,
+  getClockFont,
+  normalizeClockFontId,
+  type ClockFontId,
+} from "./clock-fonts";
 import { moveItem } from "./order";
 import { photos, type Photo } from "./photos";
 import {
@@ -21,6 +28,7 @@ type Settings = {
   displayName: string;
   clocks: WorldClock[];
   background: "daily" | string;
+  clockFont: ClockFontId;
   hasOnboarded: boolean;
 };
 
@@ -55,6 +63,7 @@ const defaultSettings: Settings = {
   displayName: "",
   clocks: [],
   background: "daily",
+  clockFont: DEFAULT_CLOCK_FONT_ID,
   hasOnboarded: false,
 };
 
@@ -78,6 +87,7 @@ const photoCredit = requiredElement<HTMLAnchorElement>("#photo-credit");
 const settingsPanel = requiredElement<HTMLElement>("#settings-panel");
 const settingsBackdrop = requiredElement<HTMLDivElement>("#settings-backdrop");
 const displayNameInput = requiredElement<HTMLInputElement>("#display-name");
+const clockFontOptions = requiredElement<HTMLDivElement>("#clock-font-options");
 const backgroundOptions = requiredElement<HTMLDivElement>("#background-options");
 const clockForm = requiredElement<HTMLFormElement>("#clock-form");
 const timezoneInput = requiredElement<HTMLInputElement>("#timezone-input");
@@ -121,6 +131,7 @@ function sanitizeSettings(value: unknown): Settings {
     displayName: typeof candidate.displayName === "string" ? candidate.displayName.slice(0, 40) : "",
     clocks,
     background: selectedBackground,
+    clockFont: normalizeClockFontId(candidate.clockFont),
     hasOnboarded: candidate.hasOnboarded === true,
   };
 }
@@ -171,6 +182,13 @@ function applyBackground(photo: Photo): void {
 
   photoCredit.textContent = `Photo by ${photo.author} · Wikimedia Commons · CC0`;
   photoCredit.href = photo.source;
+}
+
+function applyClockFont(): void {
+  const font = getClockFont(settings.clockFont);
+  document.documentElement.style.setProperty("--clock-font-family", font.fontFamily);
+  document.documentElement.style.setProperty("--clock-font-weight", String(font.fontWeight));
+  document.documentElement.style.setProperty("--clock-letter-spacing", font.letterSpacing);
 }
 
 function renderClocks(date = new Date()): void {
@@ -233,6 +251,47 @@ function renderBackgroundOptions(): void {
       renderBackgroundOptions();
     });
     backgroundOptions.append(button);
+  }
+}
+
+function renderClockFontOptions(): void {
+  clockFontOptions.replaceChildren();
+
+  for (const font of clockFonts) {
+    const button = document.createElement("button");
+    const isSelected = settings.clockFont === font.id;
+    button.type = "button";
+    button.className = "clock-font-choice";
+    button.classList.toggle("is-selected", isSelected);
+    button.dataset.fontId = font.id;
+    button.setAttribute("aria-label", `Use ${font.label} for clocks`);
+    button.setAttribute("aria-pressed", String(isSelected));
+
+    const preview = document.createElement("span");
+    preview.className = "clock-font-preview";
+    preview.textContent = "12:48";
+    preview.style.fontFamily = font.fontFamily;
+    preview.style.fontWeight = String(font.fontWeight);
+    preview.style.letterSpacing = font.letterSpacing;
+
+    const label = document.createElement("span");
+    label.className = "clock-font-label";
+    label.textContent = font.label;
+
+    const check = document.createElement("span");
+    check.className = "clock-font-check";
+    check.setAttribute("aria-hidden", "true");
+    check.textContent = "✓";
+
+    button.append(preview, label, check);
+    button.addEventListener("click", () => {
+      settings.clockFont = font.id;
+      void saveSettings();
+      applyClockFont();
+      renderClockFontOptions();
+      clockFontOptions.querySelector<HTMLButtonElement>(`[data-font-id="${font.id}"]`)?.focus();
+    });
+    clockFontOptions.append(button);
   }
 }
 
@@ -311,6 +370,7 @@ function renderConfiguredClocks(): void {
 
 function renderSettings(): void {
   displayNameInput.value = settings.displayName;
+  renderClockFontOptions();
   renderBackgroundOptions();
   renderConfiguredClocks();
 }
@@ -428,6 +488,7 @@ function bindEvents(): void {
 
 async function initialize(): Promise<void> {
   settings = await loadSettings();
+  applyClockFont();
   populateTimeZones();
   bindEvents();
   renderSettings();

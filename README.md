@@ -6,7 +6,7 @@
 
 **Beta release: 0.2.0-beta.1**
 
-Hellow is a private, fully local Chrome new-tab extension with a large clock, a personal greeting, 20 bundled background choices, and up to five reorderable world clocks.
+Hellow is a private, fully local Chrome new-tab extension with a large clock, 10 clock font choices, a personal greeting, 20 bundled background choices, and up to five reorderable world clocks.
 
 It has no accounts, analytics, backend, API keys, or recurring hosting costs. Settings are stored in the current Chrome profile with `chrome.storage.local`.
 
