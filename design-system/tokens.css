@@ -1,0 +1,30 @@
+:root {
+  /* Hellow brand — Proposal 2: geometric prism H */
+  --hellow-ocean-950: #031f29;
+  --hellow-ocean-900: #052c39;
+  --hellow-ocean-800: #06475c;
+  --hellow-ocean-700: #006b87;
+  --hellow-teal-500: #00b8b8;
+  --hellow-cyan-400: #00dce6;
+  --hellow-cyan-300: #61f1f2;
+  --hellow-cyan-100: #d8ffff;
+  --hellow-lime-400: #c8ff00;
+  --hellow-lime-300: #dcff66;
+  --hellow-white: #f7fffe;
+  --hellow-danger-400: #ff9b86;
+
+  --hellow-gradient-brand: linear-gradient(
+    120deg,
+    var(--hellow-ocean-700) 0%,
+    var(--hellow-cyan-400) 52%,
+    var(--hellow-lime-400) 100%
+  );
+
+  --hellow-radius-sm: 11px;
+  --hellow-radius-md: 14px;
+  --hellow-radius-round: 999px;
+  --hellow-shadow-focus: 0 0 0 3px rgba(0, 220, 230, 0.18);
+  --hellow-shadow-glow: 0 8px 28px rgba(0, 220, 230, 0.2);
+  --hellow-duration-fast: 160ms;
+  --hellow-duration-panel: 260ms;
+}

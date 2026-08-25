@@ -1,0 +1,7 @@
+interface:
+  display_name: "Hellow Design System"
+  short_description: "Apply the Hellow visual system consistently"
+  icon_small: "./assets/hellow-mark-128.png"
+  icon_large: "./assets/hellow-mark-master.png"
+  brand_color: "#00DCE6"
+  default_prompt: "Use $hellow-design-system to review and implement this Hellow interface change."

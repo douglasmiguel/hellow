@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="hellow-gradient" x1="20" y1="108" x2="108" y2="18" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#031f29"/>
+      <stop offset="0.32" stop-color="#006b87"/>
+      <stop offset="0.66" stop-color="#00dce6"/>
+      <stop offset="1" stop-color="#c8ff00"/>
+    </linearGradient>
+  </defs>
+  <rect x="18" y="12" width="34" height="104" rx="17" fill="url(#hellow-gradient)"/>
+  <rect x="76" y="12" width="34" height="104" rx="17" fill="url(#hellow-gradient)"/>
+  <path d="M35 61 91 39c9-4 19 3 19 13v15L40 91c-10 4-22-3-22-14 0-7 7-13 17-16Z" fill="url(#hellow-gradient)"/>
+</svg>
