@@ -182,12 +182,6 @@ function renderClocks(date = new Date()): void {
 
   worldClockList.replaceChildren();
   if (settings.clocks.length === 0) {
-    const empty = document.createElement("button");
-    empty.type = "button";
-    empty.className = "empty-clock";
-    empty.textContent = "Add a timezone";
-    empty.addEventListener("click", () => openSettings(true));
-    worldClockList.append(empty);
     return;
   }
 
@@ -382,7 +376,6 @@ function resolveTimeZone(input: string): string | null {
 
 function bindEvents(): void {
   requiredElement<HTMLButtonElement>("#open-settings").addEventListener("click", () => openSettings());
-  requiredElement<HTMLButtonElement>("#add-clock-shortcut").addEventListener("click", () => openSettings(true));
   requiredElement<HTMLButtonElement>("#close-settings").addEventListener("click", closeSettings);
   requiredElement<HTMLButtonElement>("#next-background").addEventListener("click", nextBackground);
   settingsBackdrop.addEventListener("click", closeSettings);

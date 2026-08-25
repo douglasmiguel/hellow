@@ -125,39 +125,6 @@ button {
   width: min(440px, 52vw);
 }
 
-.world-clocks-heading {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.world-clocks-heading h2 {
-  margin: 0;
-  color: rgba(216, 255, 255, 0.72);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.text-button {
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: var(--hellow-cyan-300);
-  cursor: pointer;
-  font-size: 12px;
-  font-weight: 650;
-}
-
-.text-button:hover {
-  color: var(--hellow-lime-300);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
 .world-clock-list {
   display: flex;
   justify-content: flex-end;
@@ -202,22 +169,6 @@ button {
 .world-clock-date {
   color: var(--muted);
   font-size: 9px;
-}
-
-.empty-clock {
-  padding: 9px 13px;
-  border: 1px dashed rgba(97, 241, 242, 0.42);
-  border-radius: 999px;
-  background: rgba(3, 31, 41, 0.28);
-  color: rgba(216, 255, 255, 0.88);
-  cursor: pointer;
-  font-size: 12px;
-  backdrop-filter: blur(10px);
-}
-
-.empty-clock:hover {
-  border-color: var(--hellow-cyan-300);
-  background: rgba(3, 44, 57, 0.52);
 }
 
 .hero {
@@ -700,18 +651,12 @@ body.settings-open .settings-backdrop {
 }
 
 @media (max-width: 560px) {
-  .brand span:last-child,
-  .world-clocks-heading h2,
-  .world-clocks-heading .text-button {
+  .brand span:last-child {
     display: none;
   }
 
   .world-clocks {
     width: calc(100vw - 78px);
-  }
-
-  .world-clocks-heading {
-    margin: 0;
   }
 
   .settings-header,
