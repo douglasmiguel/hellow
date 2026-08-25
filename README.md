@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="design-system/assets/hellow-mark.svg" alt="Hellow geometric H logo" width="160">
+</p>
+
 # Hellow
 
 **Beta release: 0.2.0-beta.1**
