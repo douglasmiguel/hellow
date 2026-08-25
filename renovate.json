@@ -1,0 +1,53 @@
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": [
+        "config:recommended",
+        ":configMigration",
+        ":maintainLockFilesWeekly",
+        "security:minimumReleaseAgeNpm"
+    ],
+    "timezone": "Europe/London",
+    "labels": [
+        "dependencies"
+    ],
+    "dependencyDashboardLabels": [
+        "dependencies"
+    ],
+    "prConcurrentLimit": 5,
+    "prHourlyLimit": 2,
+    "constraints": {
+        "node": "22"
+    },
+    "packageRules": [
+        {
+            "description": "Require manual approval from the Dependency Dashboard before opening major update PRs.",
+            "matchUpdateTypes": [
+                "major"
+            ],
+            "dependencyDashboardApproval": true
+        },
+        {
+            "description": "Group non-major frontend development tooling updates.",
+            "matchManagers": [
+                "npm"
+            ],
+            "matchDepTypes": [
+                "devDependencies"
+            ],
+            "matchUpdateTypes": [
+                "minor",
+                "patch"
+            ],
+            "groupName": "frontend dev tooling",
+            "groupSlug": "frontend-dev-tooling"
+        },
+        {
+            "description": "Group GitHub Actions updates.",
+            "matchManagers": [
+                "github-actions"
+            ],
+            "groupName": "GitHub Actions",
+            "groupSlug": "github-actions"
+        }
+    ]
+}
