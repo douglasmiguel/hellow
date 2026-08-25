@@ -144,6 +144,7 @@ button {
   background: var(--glass);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
   backdrop-filter: blur(16px) saturate(115%);
+  text-align: center;
 }
 
 .world-clock p,
