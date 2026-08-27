@@ -625,6 +625,11 @@ body.settings-open .settings-backdrop {
   gap: 2px;
 }
 
+.configured-clock.is-editing {
+  border-color: rgba(97, 241, 242, 0.42);
+  background: rgba(0, 220, 230, 0.055);
+}
+
 .configured-clock strong {
   overflow: hidden;
   font-size: 12px;
@@ -638,6 +643,31 @@ body.settings-open .settings-backdrop {
   font-size: 10px;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.configured-clock .clock-title-input {
+  width: 100%;
+  min-width: 0;
+  height: 28px;
+  padding: 0 8px;
+  border: 1px solid rgba(97, 241, 242, 0.46);
+  border-radius: 7px;
+  outline: none;
+  background: rgba(1, 18, 24, 0.3);
+  color: var(--hellow-white);
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.configured-clock .clock-title-input:focus {
+  border-color: rgba(97, 241, 242, 0.76);
+  box-shadow: var(--hellow-shadow-focus);
+}
+
+.configured-clock .clock-title-error {
+  color: var(--hellow-danger-400);
+  font-size: 10px;
+  white-space: normal;
 }
 
 .move-button {
@@ -671,6 +701,48 @@ body.settings-open .settings-backdrop {
 .move-button svg {
   width: 16px;
   height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+.edit-button,
+.title-action-button {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgba(97, 241, 242, 0.14);
+  border-radius: 8px;
+  background: rgba(0, 220, 230, 0.06);
+  color: rgba(216, 255, 255, 0.74);
+  cursor: pointer;
+  transition:
+    background var(--hellow-duration-fast) ease,
+    border-color var(--hellow-duration-fast) ease,
+    color var(--hellow-duration-fast) ease;
+}
+
+.edit-button:hover,
+.title-action-button:hover {
+  border-color: rgba(97, 241, 242, 0.46);
+  background: rgba(0, 220, 230, 0.12);
+  color: var(--hellow-cyan-100);
+}
+
+.title-action-button.save-title-button {
+  border-color: rgba(200, 255, 0, 0.62);
+  background: rgba(200, 255, 0, 0.1);
+  color: var(--hellow-lime-300);
+}
+
+.edit-button svg,
+.title-action-button svg {
+  width: 15px;
+  height: 15px;
   fill: none;
   stroke: currentColor;
   stroke-linecap: round;

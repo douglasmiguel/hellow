@@ -71,6 +71,7 @@ let settings: Settings = { ...defaultSettings };
 let activePhoto = photos[0];
 let previouslyFocused: HTMLElement | null = null;
 let saveNameTimer: number | undefined;
+let editingClockId: string | null = null;
 
 function requiredElement<T extends HTMLElement>(selector: string): T {
   const element = document.querySelector<T>(selector);
@@ -305,15 +306,36 @@ function renderConfiguredClocks(): void {
   clockLabelInput.disabled = atLimit;
 
   settings.clocks.forEach((clock, index) => {
-    const row = document.createElement("div");
+    const isEditing = editingClockId === clock.id;
+    const row = document.createElement(isEditing ? "form" : "div");
     row.className = "configured-clock";
+    if (isEditing) row.classList.add("is-editing");
 
     const copy = document.createElement("div");
-    const label = document.createElement("strong");
-    label.textContent = clock.label;
     const zone = document.createElement("span");
     zone.textContent = clock.timeZone;
-    copy.append(label, zone);
+
+    if (isEditing) {
+      const titleInput = document.createElement("input");
+      titleInput.type = "text";
+      titleInput.className = "clock-title-input";
+      titleInput.value = clock.label;
+      titleInput.maxLength = 28;
+      titleInput.autocomplete = "off";
+      titleInput.setAttribute("aria-label", `Title for ${clock.label}`);
+      titleInput.setAttribute("aria-describedby", `clock-title-error-${clock.id}`);
+
+      const titleError = document.createElement("span");
+      titleError.id = `clock-title-error-${clock.id}`;
+      titleError.className = "clock-title-error";
+      titleError.hidden = true;
+      titleError.setAttribute("role", "alert");
+      copy.append(titleInput, zone, titleError);
+    } else {
+      const label = document.createElement("strong");
+      label.textContent = clock.label;
+      copy.append(label, zone);
+    }
 
     const actions = document.createElement("div");
     actions.className = "clock-actions";
@@ -347,22 +369,84 @@ function renderConfiguredClocks(): void {
       return move;
     };
 
-    actions.append(createMoveButton(-1), createMoveButton(1));
+    if (isEditing) {
+      const save = document.createElement("button");
+      save.type = "submit";
+      save.className = "title-action-button save-title-button";
+      save.setAttribute("aria-label", `Save title for ${clock.label}`);
+      save.title = "Save title";
+      save.innerHTML = '<svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 4.2 4.2L19 6.5" /></svg>';
 
-    const remove = document.createElement("button");
-    remove.type = "button";
-    remove.className = "remove-button";
-    remove.textContent = "Remove";
-    remove.setAttribute("aria-label", `Remove ${clock.label}`);
-    remove.addEventListener("click", () => {
-      settings.clocks = settings.clocks.filter((item) => item.id !== clock.id);
-      void saveSettings();
-      renderClocks();
-      renderConfiguredClocks();
-      clockError.textContent = "";
-    });
+      const cancel = document.createElement("button");
+      cancel.type = "button";
+      cancel.className = "title-action-button";
+      cancel.setAttribute("aria-label", `Cancel editing ${clock.label}`);
+      cancel.title = "Cancel";
+      cancel.innerHTML = '<svg aria-hidden="true" viewBox="0 0 24 24"><path d="m7 7 10 10M17 7 7 17" /></svg>';
+      cancel.addEventListener("click", () => {
+        editingClockId = null;
+        renderConfiguredClocks();
+        configuredClocks.querySelector<HTMLButtonElement>(`[data-clock-id="${clock.id}"]`)?.focus();
+      });
 
-    actions.append(remove);
+      row.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const titleInput = row.querySelector<HTMLInputElement>(".clock-title-input");
+        const titleError = row.querySelector<HTMLSpanElement>(".clock-title-error");
+        const title = titleInput?.value.trim() ?? "";
+
+        if (!title) {
+          if (titleError) {
+            titleError.textContent = "Enter a title for this clock.";
+            titleError.hidden = false;
+          }
+          titleInput?.focus();
+          return;
+        }
+
+        const currentClock = settings.clocks.find((item) => item.id === clock.id);
+        if (currentClock) currentClock.label = title;
+        editingClockId = null;
+        void saveSettings();
+        renderClocks();
+        renderConfiguredClocks();
+        configuredClocks.querySelector<HTMLButtonElement>(`[data-clock-id="${clock.id}"]`)?.focus();
+      });
+
+      actions.append(save, cancel);
+    } else {
+      const edit = document.createElement("button");
+      edit.type = "button";
+      edit.className = "edit-button";
+      edit.dataset.clockId = clock.id;
+      edit.setAttribute("aria-label", `Edit title for ${clock.label}`);
+      edit.title = "Edit title";
+      edit.innerHTML = '<svg aria-hidden="true" viewBox="0 0 24 24"><path d="m4 16.5V20h3.5L18 9.5 14.5 6 4 16.5Z" /><path d="m13.5 7 3.5 3.5" /></svg>';
+      edit.addEventListener("click", () => {
+        editingClockId = clock.id;
+        renderConfiguredClocks();
+        configuredClocks.querySelector<HTMLInputElement>(".clock-title-input")?.focus();
+      });
+
+      actions.append(edit, createMoveButton(-1), createMoveButton(1));
+    }
+
+    if (!isEditing) {
+      const remove = document.createElement("button");
+      remove.type = "button";
+      remove.className = "remove-button";
+      remove.textContent = "Remove";
+      remove.setAttribute("aria-label", `Remove ${clock.label}`);
+      remove.addEventListener("click", () => {
+        settings.clocks = settings.clocks.filter((item) => item.id !== clock.id);
+        void saveSettings();
+        renderClocks();
+        renderConfiguredClocks();
+        clockError.textContent = "";
+      });
+
+      actions.append(remove);
+    }
     row.append(copy, actions);
     configuredClocks.append(row);
   });
