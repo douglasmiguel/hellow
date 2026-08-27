@@ -125,7 +125,7 @@ button {
 }
 
 .world-clocks {
-  width: min(440px, 52vw);
+  width: min(520px, 62vw);
 }
 
 .world-clock-list {
@@ -137,7 +137,7 @@ button {
 .world-clock {
   flex: 1 1 0;
   min-width: 74px;
-  max-width: 104px;
+  max-width: 120px;
   padding: 10px 12px;
   border: 1px solid var(--glass-border);
   border-radius: 14px;
@@ -791,7 +791,7 @@ body.settings-open .settings-backdrop {
   }
 
   .world-clocks {
-    width: min(70vw, 340px);
+    width: min(70vw, 368px);
   }
 
   .world-clock-list {
@@ -802,7 +802,7 @@ body.settings-open .settings-backdrop {
 
   .world-clock {
     flex: 0 0 auto;
-    min-width: 104px;
+    min-width: 120px;
   }
 
   .hero {
