@@ -13,6 +13,7 @@ import {
   formatDate,
   formatShortDate,
   formatTime,
+  formatTimeZoneInfo,
   greetingFor,
   isValidTimeZone,
   labelForTimeZone,
@@ -217,11 +218,16 @@ function renderClocks(date = new Date()): void {
     time.textContent = formatTime(date, clock.timeZone);
     time.dateTime = date.toISOString();
 
+    const zone = document.createElement("p");
+    zone.className = "world-clock-zone";
+    zone.textContent = formatTimeZoneInfo(date, clock.timeZone);
+    zone.title = clock.timeZone;
+
     const dateText = document.createElement("p");
     dateText.className = "world-clock-date";
     dateText.textContent = formatShortDate(date, clock.timeZone);
 
-    item.append(location, time, dateText);
+    item.append(location, zone, time, dateText);
     worldClockList.append(item);
   }
 }

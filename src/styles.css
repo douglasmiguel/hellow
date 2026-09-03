@@ -125,20 +125,20 @@ button {
 }
 
 .world-clocks {
-  width: min(520px, 62vw);
+  width: min(572px, 68.2vw);
 }
 
 .world-clock-list {
   display: flex;
   justify-content: flex-end;
-  gap: 8px;
+  gap: 9px;
 }
 
 .world-clock {
   flex: 1 1 0;
-  min-width: 74px;
-  max-width: 120px;
-  padding: 10px 12px;
+  min-width: 81px;
+  max-width: 132px;
+  padding: 11px 13px;
   border: 1px solid var(--glass-border);
   border-radius: 14px;
   background: var(--glass);
@@ -154,18 +154,31 @@ button {
 }
 
 .world-clock-location {
-  max-width: 120px;
+  max-width: 132px;
   overflow: hidden;
-  font-size: 11px;
+  font-size: 12.1px;
   font-weight: 650;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
+.world-clock-zone {
+  margin-top: 3.3px !important;
+  overflow: hidden;
+  color: rgba(97, 241, 242, 0.78);
+  font-size: 8.8px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .world-clock-time {
-  margin: 3px 0 1px !important;
+  margin: 1.1px 0 !important;
   font-family: var(--clock-font-family);
-  font-size: 20px;
+  font-size: 22px;
   font-variant-numeric: tabular-nums;
   font-weight: var(--clock-font-weight);
   letter-spacing: var(--clock-letter-spacing);
@@ -173,7 +186,7 @@ button {
 
 .world-clock-date {
   color: var(--muted);
-  font-size: 9px;
+  font-size: 9.9px;
 }
 
 .hero {
@@ -791,7 +804,7 @@ body.settings-open .settings-backdrop {
   }
 
   .world-clocks {
-    width: min(70vw, 368px);
+    width: min(77vw, 405px);
   }
 
   .world-clock-list {
@@ -802,7 +815,7 @@ body.settings-open .settings-backdrop {
 
   .world-clock {
     flex: 0 0 auto;
-    min-width: 120px;
+    min-width: 132px;
   }
 
   .hero {

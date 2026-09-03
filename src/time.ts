@@ -3,6 +3,45 @@ const CLOCK_FORMAT_OPTIONS: Intl.DateTimeFormatOptions = {
   minute: "2-digit",
 };
 
+const TIME_ZONE_ABBREVIATION_LOCALES: Record<string, string> = {
+  "Africa/Johannesburg": "en-ZA",
+  "America/Chicago": "en-US",
+  "America/Los_Angeles": "en-US",
+  "America/Mexico_City": "en-US",
+  "America/New_York": "en-US",
+  "America/Sao_Paulo": "pt-BR",
+  "Asia/Dubai": "en-AE",
+  "Asia/Hong_Kong": "en-HK",
+  "Asia/Kolkata": "en-IN",
+  "Asia/Singapore": "en-SG",
+  "Asia/Tokyo": "ja-JP",
+  "Australia/Melbourne": "en-AU",
+  "Australia/Sydney": "en-AU",
+  "Europe/Berlin": "en-GB",
+  "Europe/Lisbon": "en-GB",
+  "Europe/London": "en-GB",
+  "Europe/Paris": "en-GB",
+  "Pacific/Auckland": "en-NZ",
+};
+
+const TIME_ZONE_ABBREVIATION_FALLBACKS: Record<string, string> = {
+  "Asia/Seoul": "KST",
+  "Asia/Shanghai": "CST",
+};
+
+function timeZoneName(
+  date: Date,
+  timeZone: string,
+  timeZoneName: "short" | "shortOffset",
+  locale = "en-US",
+): string {
+  return (
+    new Intl.DateTimeFormat(locale, { timeZone, timeZoneName })
+      .formatToParts(date)
+      .find((part) => part.type === "timeZoneName")?.value ?? ""
+  );
+}
+
 export function greetingForHour(hour: number): string {
   if (hour >= 5 && hour < 12) return "Good morning";
   if (hour >= 12 && hour < 18) return "Good afternoon";
@@ -39,6 +78,18 @@ export function formatShortDate(date: Date, timeZone: string): string {
     day: "numeric",
     timeZone,
   }).format(date);
+}
+
+export function formatTimeZoneInfo(date: Date, timeZone: string): string {
+  const abbreviationLocale = TIME_ZONE_ABBREVIATION_LOCALES[timeZone] ?? "en-US";
+  const resolvedAbbreviation = timeZoneName(date, timeZone, "short", abbreviationLocale);
+  const abbreviation = /^GMT(?:[+-]|$)/.test(resolvedAbbreviation)
+    ? TIME_ZONE_ABBREVIATION_FALLBACKS[timeZone] ?? ""
+    : resolvedAbbreviation;
+  const resolvedOffset = timeZoneName(date, timeZone, "shortOffset");
+  const offset = resolvedOffset === "GMT" ? "GMT+0" : resolvedOffset;
+
+  return [abbreviation, offset].filter((part, index, parts) => part && parts.indexOf(part) === index).join(" · ");
 }
 
 export function isValidTimeZone(timeZone: string): boolean {
