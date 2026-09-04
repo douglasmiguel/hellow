@@ -799,27 +799,92 @@ body.settings-open .settings-backdrop {
 
 @media (max-width: 800px) {
   .app-shell {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: minmax(0, 1fr);
     min-height: 480px;
     padding: 22px;
   }
 
+  .topbar {
+    display: grid;
+    grid-column: 2;
+    grid-row: 1;
+    grid-template-columns: minmax(0, 1fr);
+    min-width: 0;
+    place-items: center;
+  }
+
+  .brand {
+    position: absolute;
+    z-index: 2;
+    top: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
   .world-clocks {
-    width: min(77vw, 405px);
+    width: 100%;
+    max-width: 360px;
   }
 
   .world-clock-list {
-    overflow-x: auto;
-    justify-content: flex-start;
-    padding: 0 0 8px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
   }
 
   .world-clock {
-    flex: 0 0 auto;
-    min-width: 132px;
+    display: grid;
+    grid-template-areas:
+      "location time"
+      "zone date";
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 2px 14px;
+    align-items: center;
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    padding: 8px 12px;
+    text-align: left;
+  }
+
+  .world-clock-location {
+    grid-area: location;
+    max-width: none;
+  }
+
+  .world-clock-zone {
+    grid-area: zone;
+  }
+
+  .world-clock-time {
+    grid-area: time;
+    margin: 0 !important;
+    text-align: right;
+  }
+
+  .world-clock-date {
+    grid-area: date;
+    text-align: right;
   }
 
   .hero {
+    grid-column: 1;
+    grid-row: 1;
+    width: 100%;
     margin-top: 0;
+    padding: 0 12px;
+  }
+
+  .app-shell:has(.world-clock-list:empty) .hero {
+    grid-column: 1 / -1;
+  }
+
+  .bottombar {
+    position: absolute;
+    right: 22px;
+    bottom: 22px;
+    left: 22px;
   }
 }
 
@@ -829,7 +894,7 @@ body.settings-open .settings-backdrop {
   }
 
   .world-clocks {
-    width: calc(100vw - 78px);
+    width: 100%;
   }
 
   .settings-header,
@@ -839,7 +904,11 @@ body.settings-open .settings-backdrop {
   }
 
   .local-time {
-    font-size: clamp(70px, 25vw, 118px);
+    font-size: clamp(58px, 17vw, 96px);
+  }
+
+  .greeting {
+    font-size: clamp(15px, 3.8vw, 20px);
   }
 
   .photo-credit {
