@@ -1,13 +1,16 @@
+import { additionalPhotos } from "./photo-additions.generated";
+
 export type Photo = {
   id: string;
   name: string;
   file: string;
+  thumbnail?: string;
   author: string;
   source: string;
   color: string;
 };
 
-export const photos: Photo[] = [
+const bundledPhotos: Photo[] = [
   {
     id: "forest",
     name: "Forest light",
@@ -161,3 +164,5 @@ export const photos: Photo[] = [
     color: "#576345",
   },
 ];
+
+export const photos: Photo[] = [...bundledPhotos, ...additionalPhotos];

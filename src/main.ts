@@ -7,6 +7,7 @@ import {
   type ClockFontId,
 } from "./clock-fonts";
 import { moveItem } from "./order";
+import { selectedFirst } from "./background-order";
 import { photos, type Photo } from "./photos";
 import {
   dailyIndex,
@@ -35,6 +36,7 @@ type Settings = {
 
 const STORAGE_KEY = "hellowSettings";
 const MAX_CLOCKS = 5;
+const BACKGROUNDS_PER_PAGE = 10;
 
 const fallbackTimeZones = [
   "UTC",
@@ -73,6 +75,7 @@ let activePhoto = photos[0];
 let previouslyFocused: HTMLElement | null = null;
 let saveNameTimer: number | undefined;
 let editingClockId: string | null = null;
+let backgroundPage = 0;
 
 function requiredElement<T extends HTMLElement>(selector: string): T {
   const element = document.querySelector<T>(selector);
@@ -91,6 +94,9 @@ const settingsBackdrop = requiredElement<HTMLDivElement>("#settings-backdrop");
 const displayNameInput = requiredElement<HTMLInputElement>("#display-name");
 const clockFontOptions = requiredElement<HTMLDivElement>("#clock-font-options");
 const backgroundOptions = requiredElement<HTMLDivElement>("#background-options");
+const previousBackgroundPage = requiredElement<HTMLButtonElement>("#previous-background-page");
+const nextBackgroundPage = requiredElement<HTMLButtonElement>("#next-background-page");
+const backgroundPageStatus = requiredElement<HTMLParagraphElement>("#background-page-status");
 const clockForm = requiredElement<HTMLFormElement>("#clock-form");
 const timezoneInput = requiredElement<HTMLInputElement>("#timezone-input");
 const timezoneOptions = requiredElement<HTMLDataListElement>("#timezone-options");
@@ -239,13 +245,23 @@ function renderBackgroundOptions(): void {
     ...photos.map((photo) => ({ id: photo.id, label: photo.name, photo })),
   ];
 
-  for (const choice of choices) {
+  const orderedChoices = selectedFirst(choices, settings.background);
+  const totalPages = Math.ceil(orderedChoices.length / BACKGROUNDS_PER_PAGE);
+  backgroundPage = Math.min(backgroundPage, totalPages - 1);
+  const start = backgroundPage * BACKGROUNDS_PER_PAGE;
+
+  previousBackgroundPage.disabled = backgroundPage === 0;
+  nextBackgroundPage.disabled = backgroundPage === totalPages - 1;
+  backgroundPageStatus.textContent = `Page ${backgroundPage + 1} of ${totalPages}`;
+
+  for (const choice of orderedChoices.slice(start, start + BACKGROUNDS_PER_PAGE)) {
     const button = document.createElement("button");
     button.type = "button";
     button.className = "background-choice";
     button.classList.toggle("is-selected", settings.background === choice.id);
     button.setAttribute("aria-pressed", String(settings.background === choice.id));
-    button.style.backgroundImage = `linear-gradient(180deg, transparent 25%, rgba(7, 12, 20, .78)), url("${assetUrl(`backgrounds/thumbs/${choice.photo.id}.jpg`)}")`;
+    button.dataset.backgroundId = choice.id;
+    button.style.backgroundImage = `linear-gradient(180deg, transparent 25%, rgba(7, 12, 20, .78)), url("${assetUrl(choice.photo.thumbnail ?? `backgrounds/thumbs/${choice.photo.id}.jpg`)}")`;
 
     const label = document.createElement("span");
     label.textContent = choice.label;
@@ -255,7 +271,9 @@ function renderBackgroundOptions(): void {
       settings.background = choice.id;
       void saveSettings();
       applyBackground(currentPhoto());
+      backgroundPage = 0;
       renderBackgroundOptions();
+      backgroundOptions.querySelector<HTMLButtonElement>(`[data-background-id="${choice.id}"]`)?.focus();
     });
     backgroundOptions.append(button);
   }
@@ -494,6 +512,7 @@ function nextBackground(): void {
   settings.background = next.id;
   void saveSettings();
   applyBackground(next);
+  backgroundPage = 0;
   renderBackgroundOptions();
 }
 
@@ -529,6 +548,16 @@ function bindEvents(): void {
   requiredElement<HTMLButtonElement>("#close-settings").addEventListener("click", closeSettings);
   requiredElement<HTMLButtonElement>("#next-background").addEventListener("click", nextBackground);
   settingsBackdrop.addEventListener("click", closeSettings);
+  previousBackgroundPage.addEventListener("click", () => {
+    backgroundPage -= 1;
+    renderBackgroundOptions();
+    previousBackgroundPage.focus();
+  });
+  nextBackgroundPage.addEventListener("click", () => {
+    backgroundPage += 1;
+    renderBackgroundOptions();
+    nextBackgroundPage.focus();
+  });
 
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && settingsPanel.classList.contains("is-open")) closeSettings();
