@@ -1,13 +1,14 @@
 {
   "name": "hellow",
   "private": true,
-  "version": "0.2.0-beta.1",
+  "version": "0.2.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "test": "vitest run",
-    "check": "npm run test && npm run build"
+    "check": "npm run test && npm run build",
+    "release": "npm run check && node scripts/package-release.mjs"
   },
   "devDependencies": {
     "@types/chrome": "latest",

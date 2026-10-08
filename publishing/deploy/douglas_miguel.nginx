@@ -1,0 +1,25 @@
+# Douglas Miguel: preserve existing redirects, serve Hellow privacy locally.
+server {
+  listen 80;
+  listen [::]:80;
+  server_name .douglasmiguel.com.br;
+  location = /hellow/privacy { return 301 https://douglasmiguel.com.br/hellow/privacy/; }
+  location ^~ /hellow/privacy/ { return 301 https://douglasmiguel.com.br$request_uri; }
+  location / { return 301 https://beedev.com.br/; }
+}
+server {
+  listen 443 ssl http2;
+  listen [::]:443 ssl http2;
+  server_name .douglasmiguel.com.br;
+  include ssl/douglas_miguel.conf;
+  location = /hellow/privacy { return 301 https://douglasmiguel.com.br/hellow/privacy/; }
+  location ^~ /hellow/privacy/ {
+    root /home/beedev/projects/hellow-policy;
+    index index.html;
+    try_files $uri $uri/ =404;
+    add_header X-Content-Type-Options nosniff always;
+    add_header Referrer-Policy no-referrer always;
+    add_header Content-Security-Policy "default-src 'none'; img-src 'self'; style-src 'unsafe-inline'; base-uri 'none'; frame-ancestors 'none'" always;
+  }
+  location / { return 301 https://beedev.com.br/; }
+}

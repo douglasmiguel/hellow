@@ -1,10 +1,11 @@
 {
   "manifest_version": 3,
-  "name": "Hellow Beta",
+  "name": "Hellow",
   "description": "A calm, private new tab with your clock, greeting, world clocks, and 100 beautiful background choices.",
-  "version": "0.2.0",
-  "version_name": "0.2.0-beta.1",
-  "permissions": ["storage"],
+  "version": "0.2.1",
+  "permissions": [
+    "storage"
+  ],
   "chrome_url_overrides": {
     "newtab": "newtab.html"
   },

@@ -4,7 +4,7 @@
 
 # Hellow
 
-**Beta release: 0.2.0-beta.1**
+**Release: 0.2.1**
 
 Hellow is a private, fully local Chrome new-tab extension with a large clock, 10 clock font choices, a personal greeting, 100 bundled background choices, and up to five reorderable world clocks.
 
@@ -50,3 +50,9 @@ The browser preview uses `localStorage` as a development fallback. The built Chr
 - `tests/` — behaviour, timezone, ordering, and background-catalog tests
 
 Photo sources and licensing are documented in [PHOTO_CREDITS.md](PHOTO_CREDITS.md).
+
+## Chrome Web Store release
+
+Run `npm run release` to test, build, and create `release/hellow-0.2.1.zip`. Upload this ZIP rather than the project directory. See [publishing/STORE_LISTING.md](publishing/STORE_LISTING.md) for listing copy, artwork, privacy disclosures, and submission steps.
+
+`dist/` and newly generated release ZIPs are ignored by Git. The historical beta ZIP remains tracked. Browser preferences live in the Chrome profile, not this repository.
