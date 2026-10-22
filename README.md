@@ -4,7 +4,7 @@
 
 # Hellow
 
-**Prepared release: 0.3.0** · **Live store version: 0.2.1** (verified 8 October 2026)
+**Live store version: 0.3.0** (shown in the Chrome Web Store screenshot supplied on 22 October 2026; store update date: 11 October 2026)
 
 [Install Hellow from the Chrome Web Store](https://chromewebstore.google.com/detail/hellow/kjilebcanpkngggadopfplifnbmanhhj)
 
@@ -23,7 +23,7 @@ The unpacked extension is generated in `dist/`.
 
 ## Install in Chrome
 
-Use the Chrome Web Store link above for the published version. To try the prepared release locally, load the unpacked extension:
+Use the Chrome Web Store link above for the published version. To try the current source build locally, load the unpacked extension:
 
 1. Open `chrome://extensions`.
 2. Enable **Developer mode**.
@@ -64,6 +64,6 @@ Photo sources and licensing are documented in [PHOTO_CREDITS.md](PHOTO_CREDITS.m
 
 ## Chrome Web Store release
 
-Run `npm run release` to test, build, and create `release/hellow-0.3.0.zip`. Upload this ZIP rather than the project directory. See [publishing/STORE_LISTING.md](publishing/STORE_LISTING.md) for listing copy, artwork, privacy disclosures, and submission steps.
+Run `npm run release` to test, build, and create a ZIP for the version in `package.json`. Version 0.3.0 is already published; prepare a higher version before any future store update. See [publishing/STORE_LISTING.md](publishing/STORE_LISTING.md) for the 0.3.0 listing materials and future submission steps.
 
 `dist/` and newly generated release ZIPs are ignored by Git. The historical beta ZIP remains tracked. Browser preferences live in the Chrome profile, not this repository.

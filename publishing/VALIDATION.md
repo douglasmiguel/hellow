@@ -18,9 +18,9 @@ Verified on 8 October 2026 after the user ran the BeeDev deployment:
 - Live HTML exactly matches the prepared v0.3.0 privacy page, including currency-rate disclosures.
 - SHA-256: `f8416a2a0d214fe3df710aa4f3bd3b4e8396a7d77052915905fa0f9503acb51c`.
 
-Chrome Web Store listing verified on 8 October 2026: [Hellow](https://chromewebstore.google.com/detail/hellow/kjilebcanpkngggadopfplifnbmanhhj) is live at version 0.2.1, updated 7 October 2026. Version 0.3.0 is packaged locally; its submission and publication have not been verified.
+Chrome Web Store screenshot supplied by the user on 22 October 2026: [Hellow](https://chromewebstore.google.com/detail/hellow/kjilebcanpkngggadopfplifnbmanhhj) is live at version 0.3.0, with an update date of 11 October 2026. The store page fetched by an automated web tool still showed 0.2.1; the screenshot provides newer evidence.
 
-# Release validation — 0.2.1
+# Historical release validation — 0.2.1
 
 Validated on 5 October 2026:
 
@@ -33,8 +33,8 @@ Validated on 5 October 2026:
 - Store screenshots: 1280 × 800; small tile: 440 × 280; marquee: 1400 × 560; icon: 128 × 128.
 - Approved logo and existing brand colors reused; design tokens unchanged.
 
-Still required: real extension checks for chrome.storage.local, new-tab replacement, first-run setup, browser-restart persistence, and offline operation; developer-dashboard upload, certifications, and Google review.
+At the time of this 0.2.1 validation, real extension checks for chrome.storage.local, new-tab replacement, first-run setup, browser-restart persistence, and offline operation, plus dashboard submission and Google review, remained to be completed.
 
-No personal Chrome profile or saved preferences were accessed. Artwork contains fictional demonstration data. Nothing has been committed, pushed, or submitted to the Chrome Web Store.
+No personal Chrome profile or saved preferences were accessed during that validation. Artwork contains fictional demonstration data.
 
 Privacy page published at https://douglasmiguel.com.br/hellow/privacy/ and verified over HTTPS on 5 October 2026. Live HTML matches the local page SHA-256 checksum.

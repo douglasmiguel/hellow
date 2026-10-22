@@ -1,12 +1,14 @@
-# Hellow Chrome Web Store submission
+# Hellow Chrome Web Store listing and release reference
 
-Live listing: [Hellow](https://chromewebstore.google.com/detail/hellow/kjilebcanpkngggadopfplifnbmanhhj). Extension ID: `kjilebcanpkngggadopfplifnbmanhhj`. Verified on 8 October 2026: version 0.2.1 is published, with a store update date of 7 October 2026. Version 0.3.0 is the prepared currency-conversion update.
+Live listing: [Hellow](https://chromewebstore.google.com/detail/hellow/kjilebcanpkngggadopfplifnbmanhhj). Extension ID: `kjilebcanpkngggadopfplifnbmanhhj`. A Chrome Web Store screenshot supplied on 22 October 2026 shows version 0.3.0 published, with a store update date of 11 October 2026.
 
-## Upload package
+On 22 October 2026, the detailed description below was saved in the developer dashboard to add currency conversions and correct the outdated permission wording. The dashboard subsequently showed **Pending review**. The submission dialog had automatic publication selected, so the revised description may go live after approval. The published listing still showed the old text at the time of submission.
 
-Run `npm run release` from the repository root. Upload `release/hellow-0.3.0.zip`, not the old beta archive or the source folder. The ZIP contains only the built extension, including a root-level manifest, and no saved browser preferences.
+## 0.3.0 package reference
 
-Prepared version: 0.3.0. Name: Hellow. Language: English. Current store category: Tools. Upload this release to the existing Hellow listing.
+`npm run release` from the repository root rebuilds `release/hellow-0.3.0.zip` from the current source. The ZIP contains only the built extension, including a root-level manifest, and no saved browser preferences. Version 0.3.0 is already live; a future update needs a higher version in both `package.json` and `public/manifest.json`.
+
+Published version: 0.3.0. Name: Hellow. Language: English. Current store category: Tools.
 
 ## Short description
 
@@ -54,16 +56,16 @@ Support URL: https://github.com/douglasmiguel/hellow/issues — verify public ac
 - assets/promo-small.png: small promotional tile, 440 × 280.
 - assets/promo-marquee.png: optional marquee tile, 1400 × 560.
 
-The v0.3.0 screenshots are 24-bit RGB PNGs without transparency, captured from the built page on 8 October 2026. They use fictional demonstration settings in an isolated browser profile and actual rates returned by Frankfurter. The existing icon and promotional banners retain the approved branding. Both new screenshots are also bundled in `release/hellow-0.3.0-store-images.zip`; extract them and upload the individual PNGs to the Store listing.
+The v0.3.0 screenshots are 24-bit RGB PNGs without transparency, captured from the built page on 8 October 2026. They use fictional demonstration settings in an isolated browser profile and actual rates returned by Frankfurter. The existing icon and promotional banners retain the approved branding. Both screenshots are also bundled in `release/hellow-0.3.0-store-images.zip` for reference.
 
-## Final dashboard steps
+## Steps for a future update
 
-1. Load the fresh dist folder in Chrome and confirm new-tab replacement, first-run setup, preference persistence after a browser restart, world-clock ordering, and offline operation. Automated preview checks do not replace this extension-specific check.
-2. In the developer dashboard, open the existing Hellow item (`kjilebcanpkngggadopfplifnbmanhhj`) and upload the fresh v0.3.0 ZIP.
-3. Paste the listing copy and upload the supplied images. Confirm language, category, regions, visibility, and your developer support/contact details.
-4. Supply a publicly accessible privacy-policy URL and complete the privacy disclosures and certifications accurately.
-5. Submit for review. When approved, install from the store link. Record or migrate your existing settings before removing the unpacked installation; storage belongs to each extension installation.
+1. Update the version in `package.json` and `public/manifest.json`, changelog, listing copy, and artwork as needed.
+2. Load the fresh dist folder in Chrome and confirm new-tab replacement, first-run setup, preference persistence after a browser restart, world-clock ordering, and offline operation. Automated preview checks do not replace this extension-specific check.
+3. Run `npm run release`. In the developer dashboard, open the existing Hellow item (`kjilebcanpkngggadopfplifnbmanhhj`) and upload the ZIP for the new version.
+4. Update the listing and images as needed. Confirm language, category, regions, visibility, developer support/contact details, privacy-policy URL, disclosures, and certifications.
+5. Submit for review. When approved, install from the store link. Record or migrate your existing settings before removing an unpacked installation; storage belongs to each extension installation.
 
-Version 0.2.1 is live. Review and publication of the prepared v0.3.0 update have not been verified.
+Version 0.3.0 is live according to the user-supplied Chrome Web Store screenshot of 22 October 2026.
 
 References: https://developer.chrome.com/docs/webstore/prepare ; https://developer.chrome.com/docs/webstore/cws-dashboard-listing ; https://developer.chrome.com/docs/webstore/program-policies/user-data-faq
