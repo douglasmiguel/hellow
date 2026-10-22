@@ -20,9 +20,21 @@
           <span class="brand-name">hellow</span>
         </div>
 
-        <section class="world-clocks" aria-label="World clocks">
-          <div id="world-clock-list" class="world-clock-list"></div>
-        </section>
+        <div class="dashboard-widgets">
+          <section class="world-clocks" aria-label="World clocks">
+            <div id="world-clock-list" class="world-clock-list"></div>
+          </section>
+          <section id="currencies" class="currencies" aria-label="Currency conversions" hidden>
+            <div id="currency-list" class="currency-list" aria-live="polite"></div>
+            <div class="currency-source">
+              <a href="https://frankfurter.dev" target="_blank" rel="noreferrer">Daily rates · Frankfurter</a>
+              <button id="refresh-currencies" type="button" aria-busy="false">
+                <span class="refresh-spinner" aria-hidden="true"></span>
+                <span id="refresh-currencies-label">Refresh rates</span>
+              </button>
+            </div>
+          </section>
+        </div>
       </header>
 
       <section class="hero" aria-live="polite">
@@ -122,7 +134,34 @@
           <p id="clock-order-hint" class="clock-order-hint" hidden>Use the arrows to set the left-to-right order on your dashboard.</p>
         </section>
 
-        <p class="privacy-note">Everything stays in this Chrome profile. Hellow has no account, analytics, or backend.</p>
+        <section id="currency-settings" class="settings-section">
+          <div class="section-heading split-heading">
+            <div>
+              <p class="eyebrow">Currencies</p>
+              <h3>Add up to five conversions</h3>
+            </div>
+            <span id="currency-count" class="counter">0 / 5</span>
+          </div>
+          <p class="currency-help">Daily reference rates from Frankfurter, refreshed when you open a new tab. Saved rates remain available offline. Bank and card rates may differ.</p>
+          <p class="currency-help">Adding a conversion connects to Frankfurter to request the currency pair. Your amount and other settings stay on this device.</p>
+          <p id="currency-empty" class="currency-help">No conversions yet. Choose an amount and two currencies to add your first.</p>
+          <form id="currency-form" class="clock-form">
+            <label class="field">
+              <span>Amount</span>
+              <input id="currency-amount" type="number" min="0.0001" max="1000000000" step="0.0001" value="1" required aria-describedby="currency-error" />
+            </label>
+            <div class="currency-fields">
+              <label class="field"><span>From</span><select id="currency-from" aria-describedby="currency-error" required><option value="" disabled>Choose currency</option></select></label>
+              <label class="field"><span>To</span><select id="currency-to" aria-describedby="currency-error" required><option value="" disabled>Choose currency</option></select></label>
+            </div>
+            <button id="add-currency" class="primary-button" type="submit">Add conversion</button>
+            <button id="cancel-currency" class="pagination-button" type="button" hidden>Cancel editing</button>
+            <p id="currency-error" class="form-error" role="alert"></p>
+          </form>
+          <div id="configured-currencies" class="configured-clocks"></div>
+        </section>
+
+        <p class="privacy-note">Settings stay in this Chrome profile. Optional currency conversions request rates from Frankfurter. Hellow has no account or analytics.</p>
       </div>
     </aside>
 

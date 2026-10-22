@@ -1,4 +1,6 @@
 import "./styles.css";
+import { sanitizeConversions, type Conversion } from "./currency";
+import { initializeCurrencies } from "./currency-ui";
 import {
   clockFonts,
   DEFAULT_CLOCK_FONT_ID,
@@ -29,6 +31,7 @@ type WorldClock = {
 type Settings = {
   displayName: string;
   clocks: WorldClock[];
+  conversions: Conversion[];
   background: "daily" | string;
   clockFont: ClockFontId;
   hasOnboarded: boolean;
@@ -65,6 +68,7 @@ const fallbackTimeZones = [
 const defaultSettings: Settings = {
   displayName: "",
   clocks: [],
+  conversions: [],
   background: "daily",
   clockFont: DEFAULT_CLOCK_FONT_ID,
   hasOnboarded: false,
@@ -138,6 +142,7 @@ function sanitizeSettings(value: unknown): Settings {
   return {
     displayName: typeof candidate.displayName === "string" ? candidate.displayName.slice(0, 40) : "",
     clocks,
+    conversions: sanitizeConversions(candidate.conversions),
     background: selectedBackground,
     clockFont: normalizeClockFontId(candidate.clockFont),
     hasOnboarded: candidate.hasOnboarded === true,
@@ -614,6 +619,10 @@ async function initialize(): Promise<void> {
   applyBackground(currentPhoto());
   renderClocks();
   window.setInterval(() => renderClocks(), 1_000);
+  void initializeCurrencies(() => settings.conversions, (items) => {
+    settings.conversions = items;
+    void saveSettings();
+  });
 
   if (!settings.hasOnboarded) {
     window.setTimeout(() => openSettings(), 350);

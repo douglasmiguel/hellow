@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Hellow",
-  "description": "A calm, private new tab with your clock, greeting, world clocks, and 100 beautiful background choices.",
-  "version": "0.2.1",
+  "description": "A calm new tab with your clock, greeting, world clocks, currency conversions, and 100 beautiful background choices.",
+  "version": "0.3.0",
   "permissions": [
     "storage"
   ],
@@ -14,5 +14,8 @@
     "32": "icons/icon-32.png",
     "48": "icons/icon-48.png",
     "128": "icons/icon-128.png"
-  }
+  },
+  "host_permissions": [
+    "https://api.frankfurter.dev/*"
+  ]
 }
