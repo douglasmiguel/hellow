@@ -4,6 +4,8 @@ Live listing: [Hellow](https://chromewebstore.google.com/detail/hellow/kjilebcan
 
 On 22 October 2026, the detailed description below was saved in the developer dashboard to add currency conversions and correct the outdated permission wording. The dashboard subsequently showed **Pending review**. The submission dialog had automatic publication selected, so the revised description may go live after approval. The published listing still showed the old text at the time of submission.
 
+On 22 October 2026, with explicit user approval, the earlier review was cancelled and the optional Buy Me a Coffee paragraphs were added to the dashboard description. The complete description below was saved and resubmitted successfully. Google confirmed submission, and the dashboard showed **Pending review**, with automatic publication after approval selected. The support link is submitted but is not yet confirmed live on the public listing.
+
 ## 0.3.0 package reference
 
 `npm run release` from the repository root rebuilds `release/hellow-0.3.0.zip` from the current source. The ZIP contains only the built extension, including a root-level manifest, and no saved browser preferences. Version 0.3.0 is already live; a future update needs a higher version in both `package.json` and `public/manifest.json`.
@@ -31,6 +33,10 @@ See the time clearly, enjoy a beautiful background, and keep the places that mat
 Hellow has no accounts, analytics, ads, or Hellow backend. Your greeting and conversion amounts stay on your device. Storage remembers settings and cached rates; access to api.frankfurter.dev fetches rates only when currency cards are configured.
 
 Hellow replaces Chrome's new-tab page. You can customize it using the settings button in the bottom-right corner.
+
+Enjoying Hellow? You can optionally support my work on Hellow and my other personal projects: https://buymeacoffee.com/douglasmiguel
+
+Hellow is free to use. Contributions are entirely optional and do not unlock extra features.
 
 ## Privacy practices
 
