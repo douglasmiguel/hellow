@@ -10,9 +10,9 @@
     "labels": [
         "dependencies"
     ],
-    "dependencyDashboardLabels": [
-        "dependencies"
-    ],
+    "dependencyDashboard": {
+        "labels": ["dependencies"]
+    },
     "prConcurrentLimit": 5,
     "prHourlyLimit": 2,
     "constraints": {
